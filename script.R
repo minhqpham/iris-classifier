@@ -39,22 +39,6 @@ for (i in 1:length(x)) {
 
 plot3 <- plot_ly(x = x, y = y, z = z, type = 'mesh3d') %>% add_surface() %>% layout(scene = list(xaxis = list(title = "x1"), yaxis = list(title = "x2")), title = "Neural Network Output")
 
-versicolor <- plotdata %>% filter(species == 'versicolor')
-for (i in 1:50) {
-  if (classifier(w0_f, w1_f, w2_f, versicolor$petal_length[i], versicolor$petal_width[i]) == 0)
-    print('versicolor: matched')
-  else
-    print('versicolor: unmatched')
-}
-
-virginica <- plotdata %>% filter(species == 'virginica')
-for (i in 1:50) {
-  if (classifier(w0_f, w1_f, w2_f, virginica$petal_length[i], virginica$petal_width[i]) == 1)
-    print('virginica: matched')
-  else
-    print('virginica: unmatched')
-}
-
 mean_square_error <- function(data, class, w0, w1, w2) {
   result <- rep(0, nrow(data))
   for (i in 1:nrow(data)) {
