@@ -79,19 +79,17 @@ gradient_mse <- function(data, class, w0, w1, w2) {
 }
 
 w <- c(1, 2, 3)
-print(paste("MSE: ", mean_square_error(d, c, w[1],w[2],w[3])))
-plot6 <- plot1 + stat_function(fun = boundary, args = list(w0 = w[1], w1 = w[2], w2 = w[3]))
 
 for (i in 1:35) {
   w <- w - 500 * gradient_mse(d, c, w[1], w[2], w[3])
 }
-print(paste("MSE: ", mean_square_error(d, c, w[1],w[2],w[3])))
+print(paste("MSE: ", mean_square_error(d, c, w[1], w[2],w[3])))
 plot6 <- plot1 + stat_function(fun = boundary, args = list(w0 = w[1], w1 = w[2], w2 = w[3]))
 
 for (i in 1:5000) {
   w <- w - 1 * gradient_mse(d, c, w[1], w[2], w[3])
 }
-print(paste("MSE: ", mean_square_error(d, c, w[1],w[2],w[3])))
+print(paste("MSE: ", mean_square_error(d, c, w[1], w[2],w[3])))
 plot6 <- plot1 + stat_function(fun = boundary, args = list(w0 = w[1], w1 = w[2], w2 = w[3]))
 
 for (i in 1:20000) {
