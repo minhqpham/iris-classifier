@@ -79,13 +79,6 @@ gradient_mse <- function(data, class, w0, w1, w2) {
 }
 
 w <- c(1, 2, 3)
-
-for (i in 1:35) {
-  w <- w - 500 * gradient_mse(d, c, w[1], w[2], w[3])
-}
-print(paste("MSE: ", mean_square_error(d, c, w[1], w[2],w[3])))
-plot6 <- plot1 + stat_function(fun = boundary, args = list(w0 = w[1], w1 = w[2], w2 = w[3]))
-
 for (i in 1:5000) {
   w <- w - 1 * gradient_mse(d, c, w[1], w[2], w[3])
 }
@@ -126,7 +119,5 @@ optimizer <- function(w0, w1, w2, step, numIteration) {
 randW0 <- runif(1, min=-5, max=0)
 randW1 <- runif(1, min=0, max=1)
 randW2 <- runif(1, min=0, max=5)
-optimizer(randW0, randW1, randW2, 0.005, 10)
-optimizer(randW0, randW1, randW2, 0.005, 100)
 optimizer(randW0, randW1, randW2, 0.005, 500)
 
