@@ -1,7 +1,6 @@
 irisdata <- read.csv(file = 'irisdata.csv')
 plotdata <- irisdata %>% filter(species == "versicolor" | species == "virginica")
 plot1 <- ggplot(plotdata, aes(petal_length, petal_width, color = species)) + geom_point() + labs(x = "Petal length", y = "Petal width", title = "Petal Width vs Petal Length, Versicolor and Virginica", color = "Species") 
-plot1
 
 compute_logistics <- function(w0, w1, w2, petal_length, petal_width) {
   y <- w0 + w1*petal_length + w2*petal_width
@@ -23,7 +22,6 @@ boundary <- function(w0, w1, w2, x1) {
 }
 
 plot2 <- plot1 + stat_function(fun = boundary, args = list(w0 = -2.74, w1 = 0.24, w2 = 1))
-plot2
 
 w0_f = -2.74
 w1_f = 0.24
@@ -40,7 +38,6 @@ for (i in 1:length(x)) {
 }
 
 plot3 <- plot_ly(x = x, y = y, z = z, type = 'mesh3d') %>% add_surface() %>% layout(scene = list(xaxis = list(title = "x1"), yaxis = list(title = "x2")), title = "Neural Network Output")
-plot3
 
 versicolor <- plotdata %>% filter(species == 'versicolor')
 for (i in 1:50) {
@@ -49,8 +46,7 @@ for (i in 1:50) {
   else
     print('versicolor: unmatched')
 }
-```
-```{r}
+
 virginica <- plotdata %>% filter(species == 'virginica')
 for (i in 1:50) {
   if (classifier(w0_f, w1_f, w2_f, virginica$petal_length[i], virginica$petal_width[i]) == 1)
@@ -81,8 +77,6 @@ mean_square_error(d, c, 1, 2, 3)
 
 plot4 <- plot1 + stat_function(fun = boundary, args = list(w0 = w0_f, w1 = w1_f, w2 = w2_f))
 plot5 <- plot1 + stat_function(fun = boundary, args = list(w0 = 1, w1 = 2, w2 = 3))
-plot4
-plot5
 
 gradient_mse <- function(data, class, w0, w1, w2) {
   dMSE_dw <- c(0, 0, 0)
@@ -103,28 +97,24 @@ gradient_mse <- function(data, class, w0, w1, w2) {
 w <- c(1, 2, 3)
 print(paste("MSE: ", mean_square_error(d, c, w[1],w[2],w[3])))
 plot6 <- plot1 + stat_function(fun = boundary, args = list(w0 = w[1], w1 = w[2], w2 = w[3]))
-plot6
 
 for (i in 1:35) {
   w <- w - 500 * gradient_mse(d, c, w[1], w[2], w[3])
 }
 print(paste("MSE: ", mean_square_error(d, c, w[1],w[2],w[3])))
 plot6 <- plot1 + stat_function(fun = boundary, args = list(w0 = w[1], w1 = w[2], w2 = w[3]))
-plot6
 
 for (i in 1:5000) {
   w <- w - 1 * gradient_mse(d, c, w[1], w[2], w[3])
 }
 print(paste("MSE: ", mean_square_error(d, c, w[1],w[2],w[3])))
 plot6 <- plot1 + stat_function(fun = boundary, args = list(w0 = w[1], w1 = w[2], w2 = w[3]))
-plot6
 
 for (i in 1:20000) {
   w <- w - 0.002 * gradient_mse(d, c, w[1], w[2], w[3])
 }
 print(paste("MSE: ", mean_square_error(d, c, w[1],w[2],w[3])))
 plot6 <- plot1 + stat_function(fun = boundary, args = list(w0 = w[1], w1 = w[2], w2 = w[3]))
-plot6
 
 optimizer <- function(w0, w1, w2, step, numIteration) {
   w <- c(w0, w1, w2)
